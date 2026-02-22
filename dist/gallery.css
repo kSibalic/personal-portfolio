@@ -1,0 +1,196 @@
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 10px;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 0.25rem;
+  opacity: 0;
+  animation: galleryFadeIn 0.5s ease forwards;
+  position: relative;
+}
+
+.gallery-item--loading {
+  background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: galleryFadeIn 0.5s ease forwards, skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.gallery-item--short  { grid-row-end: span 24; }
+.gallery-item--medium { grid-row-end: span 32; }
+.gallery-item--tall   { grid-row-end: span 42; }
+
+.gallery-item a {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+.gallery-item img.gallery-img--loaded {
+  opacity: 1;
+}
+
+.gallery-item:hover img.gallery-img--loaded {
+  transform: scale(1.05);
+}
+
+.gallery-item--error {
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-item--error::after {
+  content: '⚠';
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.gallery-video-item video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+.gallery-video-item video.gallery-img--loaded {
+  opacity: 1;
+}
+
+.gallery-video-item:hover video.gallery-img--loaded {
+  transform: scale(1.05);
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.play-overlay svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 2px;
+  fill: #ffffff;
+}
+
+.gallery-video-item:hover .play-overlay {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+@keyframes galleryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery-skeleton {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 10px;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .gallery-skeleton { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .gallery-skeleton { grid-template-columns: 1fr; }
+}
+
+.skeleton-item {
+  border-radius: 0.25rem;
+  background: linear-gradient(90deg, #1a1a1a 25%, #252525 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-item--short  { grid-row-end: span 24; }
+.skeleton-item--medium { grid-row-end: span 32; }
+.skeleton-item--tall   { grid-row-end: span 42; }
+
+@keyframes skeletonShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.scroll-sentinel {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.15s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1.2); }
+}
+
+.gallery-error {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #9ca3af;
+  font-size: 1.125rem;
+}

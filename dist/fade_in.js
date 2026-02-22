@@ -1,14 +1,18 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const body = document.querySelector("body");
-  body.classList.remove("opacity-0");
-  body.classList.add("opacity-100");
-  const photos = document.querySelectorAll("img");
-  let delay = 0;
-  photos.forEach((photo) => {
-    setTimeout(() => {
-      photo.classList.remove("opacity-0");
-      photo.classList.add("opacity-100");
+document.addEventListener('DOMContentLoaded', function () {
+  var body = document.body;
+  body.style.opacity = '1';
+
+  var photos = document.querySelectorAll('img');
+  var delay = 0;
+  photos.forEach(function (photo) {
+    photo.style.opacity = '0';
+    photo.style.transition = 'opacity 0.5s ease';
+    setTimeout(function () {
+      photo.style.opacity = '1';
     }, delay);
     delay += 100;
   });
+
+  var yearEl = document.getElementById('copyright-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
